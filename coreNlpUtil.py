@@ -80,7 +80,7 @@ def nerWordAnnotator(parseResult):
         tag = [[parseResult['sentences'][0]['words'][i][1]['CharacterOffsetBegin'], parseResult['sentences'][0]['words'][i][1]['CharacterOffsetEnd']], wordIndex, parseResult['sentences'][0]['words'][i][0], parseResult['sentences'][0]['words'][i][1]['NamedEntityTag']]
         wordIndex += 1
 
-        if tag[3] <> 'O':
+        if tag[3] != 'O':
             res.append(tag)
 
 

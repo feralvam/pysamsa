@@ -7,12 +7,14 @@ def loadPPDB(ppdbFileName = 'Resources/ppdb-1.0-xxxl-lexical.extended.synonyms.u
     global ppdbDict
 
     count = 0
-    
+
     ppdbFile = open(ppdbFileName, 'r')
     for line in ppdbFile:
         if line == '\n':
             continue
         tokens = line.split()
+        if not len(tokens) == 2:
+            continue
         tokens[1] = tokens[1].strip()
         ppdbDict[(tokens[0], tokens[1])] = ppdbSim
         count += 1
