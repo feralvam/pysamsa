@@ -32,7 +32,7 @@ def get_sentences(P):
     """
     P is the output of the simplification system. Return all the sentences in each passage
     """
-    dirpath = '/Mypath/System_output'
+    dirpath = '/private/home/louismartin/dev/third-party/SAMSA/system-output'
     folder = nltk.data.find(dirpath)
     corpusReader = nltk.corpus.PlaintextCorpusReader(folder, P)
     d = len(corpusReader.sents())
@@ -47,7 +47,7 @@ for t in index:
     xml_string1 = f1.read()
     f1.close()
     xml_object1 = fromstring(xml_string1)
-    P1 = convert.from_site(xml_object1)
+    P1 = convert.from_standard(xml_object1)
     L1 = get_scenes(P1)
     L2 = get_sentences('%s.txt' %t)
     s = open('s%s.txt' %t, 'w')
