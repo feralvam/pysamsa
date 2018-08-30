@@ -72,7 +72,7 @@ def parse_parser_results(text):
     """
     results = {"sentences": []}
     state = STATE_START
-    for line in text.encode('utf-8').split("\n"):
+    for line in text.split("\n"):
         line = line.strip()
         
         if line.startswith("Sentence #"):
@@ -206,7 +206,7 @@ class StanfordCoreNLP(object):
         while True:
             # Time left, read more data
             try:
-                incoming += self.corenlp.read_nonblocking(2000, 1)
+                incoming += self.corenlp.read_nonblocking(2000, 1).decode('utf-8')
                 if "\nNLP>" in incoming: 
                     break
                 time.sleep(0.0001)
@@ -223,7 +223,7 @@ class StanfordCoreNLP(object):
             logger.debug("%s\n%s" % ('='*40, incoming))
         try:
             results = parse_parser_results(incoming)
-        except Exception, e:
+        except Exception as e:
             if VERBOSE: 
                 logger.debug(traceback.format_exc())
             raise e

@@ -691,6 +691,7 @@ class Transport:
 
     def sendrecv( self, string ):
         """send + receive data"""
+        string = bytes(string, 'utf-8')
         self.send( string )
         return self.recv()
     def serve( self, handler, n=None ):
@@ -792,6 +793,7 @@ class TransportSocket(Transport):
     def sendrecv( self, string ):
         """send data + receive data + close"""
         try:
+            string = bytes(string, 'utf-8')
             self.send( string )
             return self.recv()
         finally:
@@ -819,6 +821,7 @@ class TransportSocket(Transport):
                 result = handler(data)
                 if data is not None:
                     self.log( "%s <-- %s" % (repr(addr), repr(result)) )
+                    result = bytes(result, 'utf-8')
                     conn.send( result )
                 self.log( "%s close" % repr(addr) )
                 conn.close()
