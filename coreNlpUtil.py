@@ -179,27 +179,40 @@ def dependencyParseAndPutOffsets(parseResult):
         #print item
 
     result = []
-
+    word2infos = {word: {**info, **{'WordNumber': i}} for i, [word, info] in enumerate(words)}
     for item in dParse:
+        if item[1] not in word2infos or item[2] not in word2infos:
+            #print(f'Skipping item: {item}')
+            continue
         newItem = []
 
         # copy 'rel'
         newItem.append(item[0])
 
         # construct and append entry for 'left'
-        left = item[1][0:item[1].rindex("-")]
-        wordNumber = item[1][item[1].rindex("-")+1:]
-        if wordNumber.isdigit() == False:
-            continue
-        left += '{' + words[int(wordNumber)-1][1]['CharacterOffsetBegin'] + ' ' + words[int(wordNumber)-1][1]['CharacterOffsetEnd'] + ' ' + wordNumber + '}'
+        #left = item[1][0:item[1].rindex("-")]
+        #wordNumber = item[1][item[1].rindex("-")+1:]
+        #if wordNumber.isdigit() == False:
+        #    continue
+        #left += '{' + words[int(wordNumber)-1][1]['CharacterOffsetBegin'] + ' ' + words[int(wordNumber)-1][1]['CharacterOffsetEnd'] + ' ' + wordNumber + '}'
+        word = item[1]
+        start_offset = word2infos[word]['CharacterOffsetBegin']
+        end_offset = word2infos[word]['CharacterOffsetEnd']
+        word_number = word2infos[word]['WordNumber']
+        left = f'{word}{{{start_offset}, {end_offset}, {word_number}}}'
         newItem.append(left)
 
         # construct and append entry for 'right'
-        right = item[2][0:item[2].rindex("-")]
-        wordNumber = item[2][item[2].rindex("-")+1:]
-        if wordNumber.isdigit() == False:
-            continue
-        right += '{' + words[int(wordNumber)-1][1]['CharacterOffsetBegin'] + ' ' + words[int(wordNumber)-1][1]['CharacterOffsetEnd'] + ' ' + wordNumber  + '}'
+        #right = item[2][0:item[2].rindex("-")]
+        #wordNumber = item[2][item[2].rindex("-")+1:]
+        #if wordNumber.isdigit() == False:
+        #    continue
+        #right += '{' + words[int(wordNumber)-1][1]['CharacterOffsetBegin'] + ' ' + words[int(wordNumber)-1][1]['CharacterOffsetEnd'] + ' ' + wordNumber  + '}'
+        word = item[2]
+        start_offset = word2infos[word]['CharacterOffsetBegin']
+        end_offset = word2infos[word]['CharacterOffsetEnd']
+        word_number = word2infos[word]['WordNumber']
+        right = f'{word}{{{start_offset}, {end_offset}, {word_number}}}'
         newItem.append(right)
 
         result.append(newItem)
