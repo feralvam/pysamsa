@@ -21,7 +21,7 @@ def get_num_sentences(P):
     """
     P is the output of the simplification system. Return all the sentences in each passage
     """
-    dirpath = '/Mypath/System_output'
+    dirpath = '/private/home/louismartin/dev/third-party/SAMSA/system-output'
     folder = nltk.data.find(dirpath)
     corpusReader = nltk.corpus.PlaintextCorpusReader(folder, P)
 
