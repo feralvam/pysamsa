@@ -1,6 +1,6 @@
-from wordSim import *
-from util import *
-from coreNlpUtil import *
+from .wordSim import *
+from .util import *
+from .coreNlpUtil import *
 
 
 

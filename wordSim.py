@@ -1,7 +1,11 @@
-from config import *
+from pathlib import Path
 
-################################################################################
-def loadPPDB(ppdbFileName = 'Resources/ppdb-1.0-xxxl-lexical.extended.synonyms.uniquepairs'):
+from .config import *
+
+
+PPDB_path = Path(__file__).resolve().parent / 'Resources/ppdb-1.0-xxxl-lexical.extended.synonyms.uniquepairs'
+
+def loadPPDB(ppdbFileName=PPDB_path):
 
     global ppdbSim
     global ppdbDict

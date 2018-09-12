@@ -1,10 +1,10 @@
 import json
-from jsonrpc import ServerProxy, JsonRpc20, TransportTcpIp
+from .jsonrpc import ServerProxy, JsonRpc20, TransportTcpIp
 
 
 
 
-from config import *
+from .config import *
 
 
 
