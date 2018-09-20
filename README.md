@@ -1,11 +1,14 @@
-# SAMSA
-SAMSA Evaluation Metric and Human Evaluation Benchmark for Text Simplification
+# SAMSA: Evaluation Metric and Human Evaluation Benchmark for Text Simplification
+[![CircleCI](https://circleci.com/gh/louismartin/pysamsa.svg?style=svg)](https://circleci.com/gh/louismartin/pysamsa)
+
+Pacakged version adapted from (Elior Sulem's original SAMSA)[https://github.com/eliorsulem/SAMSA]
 
 If you use the metric or the benchmark, please cite the following paper:
 
       Semantic Structural Evaluation for Text Simplification
       Elior Sulem, Omri Abend and Ari Rappoport
       Proc. of NAACL 2018
+
 ## Dataset
 **./human_evaluation_benchmark.ods**
 
