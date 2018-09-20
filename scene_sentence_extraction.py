@@ -39,20 +39,21 @@ def get_sentences(P):
     return (corpusReader.sents()[:d])
 
 
-index = list(range(0,100))
+if __name__ == '__main__':
+    index = list(range(0,632))
 
 
-for t in index:
-    f1 = open('UCCAannotated_source/%s.xml' %t)
-    xml_string1 = f1.read()
-    f1.close()
-    xml_object1 = fromstring(xml_string1)
-    P1 = convert.from_standard(xml_object1)
-    L1 = get_scenes(P1)
-    L2 = get_sentences('%s.txt' %t)
-    s = open('s%s.txt' %t, 'w')
-    s.write('%s\n' %L1)
-    s.write('%s\n' %L2)
+    for t in index:
+        f1 = open('UCCAannotated_source/toto_%04d.xml' %t)
+        xml_string1 = f1.read()
+        f1.close()
+        xml_object1 = fromstring(xml_string1)
+        P1 = convert.from_standard(xml_object1)
+        L1 = get_scenes(P1)
+        L2 = get_sentences('%s.txt' %t)
+        s = open('extraction_train/s%s.txt' %t, 'w')
+        s.write('%s\n' %L1)
+        s.write('%s\n' %L2)
 
-    s.close()
+        s.close()
 

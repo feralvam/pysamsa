@@ -6,7 +6,7 @@ import math
 import nltk
 import ast
 
-index = list(range(0,100))
+index = list(range(0,1)
 
 for t in index:
     f1 = open('scene_sentence_extraction_output/s%s.txt' %t)
@@ -24,7 +24,7 @@ for t in index:
             output1.append(a[1])
         output.append(output1)
                       
-    s = open('a%s.txt' %t, 'w')
+    s = open('scene_sentence_alignment_output/a%s.txt' %t, 'w')
     s.write(str(output))
     s.close()
 

@@ -189,7 +189,7 @@ def get_cparticipants(P):
 
 
 
-index = list(range(0,100))
+index = list(range(0,1))
 
 for t in index:
     f1 = open('UCCAannotated_source/%s.xml' %t)
