@@ -34,10 +34,7 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
             pip install -e .
-            python -c "import nltk; nltk.download('punkt');"
-            # Download UCCA semantic parsing model
-            curl -LO https://github.com/huji-nlp/tupa/releases/download/v1.3.6/ucca-bilstm-1.3.6.tar.gz
-            tar xvzf ucca-bilstm-1.3.6.tar.gz
+            ./setup.sh
 
 
       - save_cache:
