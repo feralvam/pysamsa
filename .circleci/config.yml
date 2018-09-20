@@ -34,6 +34,8 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
             pip install -e .
+            python -c "import nltk; nltk.download('punkt');"
+
 
       - save_cache:
           paths:
