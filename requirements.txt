@@ -1,3 +1,4 @@
 pytest
 nltk
 tupa
+pexpect

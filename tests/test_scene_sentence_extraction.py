@@ -12,10 +12,10 @@ def test_get_sentences():
 
 
 def test_get_scenes():
-    text = 'You are waiting for a train that will take you far away .'
+    text = 'You are waiting for a train , this train will take you far away .'
     expected_scenes = [
-        ['You', 'are', 'waiting', 'for', 'a', 'train', 'that', 'will', 'take', 'you', 'far', 'away'],
-        ['train', 'that', 'will', 'take', 'you', 'far', 'away']
+        ['You', 'are', 'waiting', 'for', 'a', 'train'],
+        ['this', 'train', 'that', 'will', 'take', 'you', 'far', 'away']
     ]
     scenes = get_scenes(text)
     print(scenes)

@@ -1,9 +1,8 @@
-from pathlib import Path
+from pysamsa.config import *
+from pysamsa.utils import RESOURCES_DIR
 
-from .config import *
+PPDB_path = RESOURCES_DIR / 'ppdb-1.0-xxxl-lexical.extended.synonyms.uniquepairs'
 
-
-PPDB_path = Path(__file__).resolve().parent / 'Resources/ppdb-1.0-xxxl-lexical.extended.synonyms.uniquepairs'
 
 def loadPPDB(ppdbFileName=PPDB_path):
 

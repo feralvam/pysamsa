@@ -1,11 +1,6 @@
+from pysamsa.scene_sentence_extraction import get_scenes, get_sentences, get_ucca_passage
+from pysamsa.scene_sentence_alignment import align_scenes_sentences
 
-
-from ucca import layer0, layer1, convert, core
-from xml.etree.ElementTree import ElementTree, tostring, fromstring
-
-
-import nltk
-import ast
 
 
 def get_num_scenes(P):
@@ -14,18 +9,12 @@ def get_num_scenes(P):
     """
     scenes = [x for x in P.layer("1").all if x.tag == "FN" and x.is_scene()]
     output = len(scenes)
-
     return output
 
-def get_num_sentences(P):
-    """
-    P is the output of the simplification system. Return all the sentences in each passage
-    """
-    dirpath = '/private/home/louismartin/dev/third-party/SAMSA/system-output'
-    folder = nltk.data.find(dirpath)
-    corpusReader = nltk.corpus.PlaintextCorpusReader(folder, P)
 
-    return len(corpusReader.sents())
+def get_num_sentences(text):
+    return len(get_sentences(text))
+
 
 def get_cmrelations(P):
     """
@@ -68,11 +57,6 @@ def get_cmrelations(P):
         output.append(output2)
 
     return(output)
-
-
-
-
-
 
 
 def get_cparticipants(P):
@@ -186,35 +170,24 @@ def get_cparticipants(P):
     return(y)
 
 
+def SAMSA(complex_sentence, simple_sentence):
+    scenes = get_scenes(complex_sentence)
+    simple_sentences = get_sentences(simple_sentence)
+    all_scenes_alignments = align_scenes_sentences(scenes, simple_sentences)
 
-
-
-index = list(range(0,1))
-
-for t in index:
-    f1 = open('UCCAannotated_source/%s.xml' %t)
-    xml_string1 = f1.read()
-    f1.close()
-    xml_object1 = fromstring(xml_string1)
-    P1 = convert.from_standard(xml_object1) #for semi-automatic SAMSA
+    P1 = get_ucca_passage(complex_sentence)
     L1 = get_num_scenes(P1)
-    L2 = get_num_sentences('%s.txt' %t)
+    L2 = len(simple_sentences)
     M1 = get_cmrelations(P1)
     A1 = get_cparticipants(P1)
 
-    #print(L1)
-    #print(L2)
-    #print(M1)
-    #print(A1)
     if L1 < L2:
-       score = 0
+        score = 0
 
 
     elif L1 == L2:
-        f1 = open('scene_sentence_alignment_output/a%s.txt' %t)   #Replace Zhu by Woodsend/Wubben/Narayan1/Narayan2/Narayan3/Simple for testing the different systems
-        s = f1.read()
-        f1.close()
-        t = ast.literal_eval(s)
+        t = all_scenes_alignments
+
         match = []
         for i in list(range(0,L1)):
             match_value = 0
@@ -260,17 +233,18 @@ for t in index:
 
 
     else:
-        f1 = open('scene_sentence_alignment_output/a%s.txt' %t)
-        s = f1.read()
-        f1.close()
-        t =  ast.literal_eval(s)
+        #f1 = open('scene_sentence_alignment_output/a%s.txt' %t)
+        #s = f1.read()
+        #f1.close()
+        #t =  ast.literal_eval(s)
+        t = all_scenes_alignments
         match = []
         for i in list(range(0,L1)):
             match_value = 0
             for j in list(range(0,L2)):
                 if len(t[i][j]) > match_value:
-                   match_value = len(t[i][j])
-                   m = j
+                    match_value = len(t[i][j])
+                    m = j
             match.append(m)
         scorem = []
         scorea = []
@@ -305,17 +279,4 @@ for t in index:
             v = 0.5*scorem[i] + 0.5*(1/d)*sum(scorea[i])
             scoresc.append(v)
         score = (L2/(L1**2))*sum(scoresc)
-
-
-    print(score)
-
-
-
-
-
-
-
-
-
-
-
+    return score

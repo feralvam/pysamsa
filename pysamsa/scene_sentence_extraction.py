@@ -7,11 +7,15 @@ import nltk
 from tupa.config import Config
 from tupa.parse import read_passages, Parser
 
+from pysamsa.utils import RESOURCES_DIR
+
 
 def get_ucca_parser():
-    model_path = 'models/ucca-bilstm'
-    vocab_path = 'vocab'
-    argv = ['script_name', '-m', model_path, '--vocab', vocab_path]
+    ucca_dir = RESOURCES_DIR / 'ucca'
+    os.chdir(str(ucca_dir))
+    model_path = ucca_dir / 'models/ucca-bilstm'
+    vocab_path = ucca_dir / 'vocab'
+    argv = ['script_name', '-m', str(model_path), '--vocab', str(vocab_path)]
     with unittest.mock.patch('sys.argv', argv):
         Config.reload()
         args = Config().args
@@ -63,6 +67,7 @@ def get_scenes(text):
 def get_sentences(text):
     '''Splits the input text into its sentences and each output sentence to words.'''
     word_tokenizer = nltk.tokenize.WordPunctTokenizer()
+    # TODO: Maybe we should remove punctuation as well to match tupa's word tokenization
     sentence_tokenizer = nltk.data.load(f'tokenizers/punkt/english.pickle')
     return [word_tokenizer.tokenize(sentence)
             for sentence in sentence_tokenizer.tokenize(text)]
